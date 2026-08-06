@@ -2,28 +2,28 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Choix du rendez-vous ❤️</title>
+<title>Choix du rendez-vous ❤️</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 </head>
 
 
 <body>
 
 <div class="coeurs">
-    ❤️ 💕 🌸 💗 🌹 💕 ❤️
+❤️ 💕 🌸 💗 🌹 💕 ❤️
 </div>
-
 
 
 <div class="container">
 
-
     <h1>Parfait ❤️</h1>
-
 
     <p>
         Choisis le moment qui te convient le mieux 😊
@@ -39,14 +39,12 @@
     </div>
 
 
-
-    <button onclick="valider()">
+    <button id="confirmBtn">
         Confirmer 💌
     </button>
 
 
     <p id="message"></p>
-
 
 </div>
 
@@ -54,44 +52,118 @@
 
 <script>
 
-function valider() {
+window.onload = function(){
+
+    console.log("Page chargée");
 
 
-    let date = document.getElementById("date").value;
+    if(typeof emailjs === "undefined"){
 
-    let heure = document.getElementById("heure").value;
+        console.error("EmailJS absent");
 
-    let message = document.getElementById("message");
-
-
-
-    if(date === "" || heure === "") {
-
-        message.textContent =
-        "Choisis une date et une heure 😊";
+        document.getElementById("message").textContent =
+        "Erreur EmailJS 😢";
 
         return;
-
     }
 
 
-
-    message.textContent =
-    `🌹 Rendez-vous prévu le ${date} à ${heure} ❤️`;
-
-}
+    console.log("EmailJS chargé");
 
 
+    emailjs.init("0jOxWfLIn86tCKIDB");
 
-window.onload = () => {
 
-    document.body.classList.remove("fade-out");
+    console.log("EmailJS initialisé");
+
+
+
+    document.getElementById("confirmBtn").onclick = async function(){
+
+
+        console.log("Bouton cliqué");
+
+
+        let date = document.getElementById("date").value;
+
+        let heure = document.getElementById("heure").value;
+
+        let message = document.getElementById("message");
+
+
+
+        if(date === "" || heure === ""){
+
+            message.textContent =
+            "Choisis une date et une heure 😊";
+
+            return;
+
+        }
+
+
+
+        message.textContent =
+        "Envoi en cours... ❤️";
+
+
+
+        console.log("Tentative d'envoi");
+
+        console.log("Date :", date);
+
+        console.log("Heure :", heure);
+
+
+
+        try{
+
+
+            let response = await emailjs.send(
+
+                "service_acfuhe4",
+
+                "template_a6tkmk9",
+
+                {
+                    date_rdv: date,
+                    heure_rdv: heure
+                }
+
+            );
+
+
+
+            console.log("EMAIL ENVOYÉ :", response);
+
+
+
+            message.textContent =
+            `🌹 Rendez-vous confirmé le ${date} à ${heure} ❤️`;
+
+
+
+        }catch(error){
+
+
+            console.error("ERREUR EMAILJS :", error);
+
+
+            message.textContent =
+            "Erreur lors de l'envoi 😢";
+
+
+        }
+
+
+    };
+
 
 };
-
 
 </script>
 
 
 </body>
+
 </html>
