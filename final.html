@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Choix du rendez-vous ❤️</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+<div class="coeurs">
+    ❤️ 💕 🌸 💗 🌹 💕 ❤️
+</div>
+
+
+
+<div class="container">
+
+
+    <h1>Parfait ❤️</h1>
+
+
+    <p>
+        Choisis le moment qui te convient le mieux 😊
+    </p>
+
+
+    <div class="choix">
+
+        <input type="date" id="date">
+
+        <input type="time" id="heure">
+
+    </div>
+
+
+
+    <button onclick="valider()">
+        Confirmer 💌
+    </button>
+
+
+    <p id="message"></p>
+
+
+</div>
+
+
+
+<script>
+
+function valider() {
+
+
+    let date = document.getElementById("date").value;
+
+    let heure = document.getElementById("heure").value;
+
+    let message = document.getElementById("message");
+
+
+
+    if(date === "" || heure === "") {
+
+        message.textContent =
+        "Choisis une date et une heure 😊";
+
+        return;
+
+    }
+
+
+
+    message.textContent =
+    `🌹 Rendez-vous prévu le ${date} à ${heure} ❤️`;
+
+}
+
+
+
+window.onload = () => {
+
+    document.body.classList.remove("fade-out");
+
+};
+
+
+</script>
+
+
+</body>
+</html>

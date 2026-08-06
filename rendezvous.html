@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notre rendez-vous ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>C'est un oui !!! 😍❤️</h1>
+
+    <h2>Organisons ça :</h2>
+
+    <p>📅 Choisis la date qui te convient</p>
+    <p>🕒 Choisis l'heure qui te convient</p>
+    <p>📍 Le lieu : À choisir ensemble 😏</p>
+
+    <button onclick="changerPage('final.html')">
+        Continuer 💌
+    </button>
+
+</div>
+
+<script>
+function changerPage(page) {
+
+    document.body.classList.add("fade-out");
+
+    setTimeout(() => {
+        window.location.href = page;
+    }, 800);
+
+}
+</script>
+
+</body>
+</html>
