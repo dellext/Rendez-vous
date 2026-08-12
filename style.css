@@ -1,288 +1,694 @@
-body {
-
-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-family:'Georgia', serif;
-
-background:
-linear-gradient(135deg,#ffd6e7,#fff5f7);
-
-overflow:hidden;
-
-
-opacity:1;
-
-transition:opacity 0.8s ease;
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Georgia", serif;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 180, 210, 0.8), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(255, 210, 225, 0.8), transparent 35%),
+        linear-gradient(135deg, #fff0f6, #ffd6e7, #fff5f8);
+
+    overflow: hidden;
+
+    opacity: 1;
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
 
 body.fade-out {
-
-opacity:0;
-
+    opacity: 0;
+    transform: scale(1.05);
 }
 
+/* =========================
+   BACKGROUND
+========================= */
 
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
 
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: blobMove 12s infinite alternate ease-in-out;
+}
+
+.blob1 {
+    width: 350px;
+    height: 350px;
+    background: #ff8fbd;
+    top: -100px;
+    left: -100px;
+}
+
+.blob2 {
+    width: 300px;
+    height: 300px;
+    background: #ffb6d5;
+    bottom: -100px;
+    right: -80px;
+    animation-delay: -4s;
+}
+
+.blob3 {
+    width: 250px;
+    height: 250px;
+    background: #ffd1e5;
+    top: 40%;
+    left: 60%;
+    animation-delay: -7s;
+}
+
+@keyframes blobMove {
+
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(60px, -40px) scale(1.15);
+    }
+
+    100% {
+        transform: translate(-40px, 50px) scale(0.95);
+    }
+}
+
+/* =========================
+   PARTICULES
+========================= */
+
+.particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: rgba(214, 51, 132, 0.4);
+
+    animation:
+        particleFloat linear infinite,
+        particleGlow 2s infinite alternate;
+}
+
+@keyframes particleFloat {
+
+    from {
+        transform: translateY(110vh);
+    }
+
+    to {
+        transform: translateY(-10vh);
+    }
+}
+
+@keyframes particleGlow {
+
+    from {
+        opacity: 0.2;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+/* =========================
+   COEURS
+========================= */
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+
+    bottom: -50px;
+
+    font-size: 20px;
+
+    opacity: 0;
+
+    animation:
+        heartFloat linear forwards;
+}
+
+@keyframes heartFloat {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateY(0)
+            rotate(0deg)
+            scale(0.5);
+    }
+
+    15% {
+        opacity: 0.8;
+    }
+
+    50% {
+        transform:
+            translateY(-50vh)
+            translateX(30px)
+            rotate(15deg)
+            scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translateY(-110vh)
+            translateX(-40px)
+            rotate(-20deg)
+            scale(1.3);
+    }
+}
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container {
+    position: relative;
 
+    width: min(92%, 620px);
 
-background:white;
+    padding: 55px 45px 40px;
 
-padding:50px;
+    text-align: center;
 
-border-radius:35px;
+    background: rgba(255, 255, 255, 0.72);
 
-text-align:center;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
 
-width:450px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
 
+    border-radius: 40px;
 
-box-shadow:
-0 20px 60px rgba(214,51,132,0.25);
+    box-shadow:
+        0 30px 80px rgba(214, 51, 132, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
 
+    z-index: 10;
 
-animation:apparition 1s ease;
-
-
-z-index:2;
-
+    animation: containerAppear 1.2s cubic-bezier(.16, 1, .3, 1);
 }
 
+@keyframes containerAppear {
 
+    from {
+        opacity: 0;
+        transform:
+            translateY(60px)
+            scale(0.9);
+    }
 
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+/* =========================
+   TOP HEART
+========================= */
+
+.top-heart {
+    display: inline-flex;
+
+    width: 70px;
+    height: 70px;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 35px;
+
+    background: rgba(255, 220, 235, 0.8);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 10px 30px rgba(214, 51, 132, 0.15);
+
+    animation:
+        heartbeat 2s infinite ease-in-out,
+        topAppear 1s 0.3s both;
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.12);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes topAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.subtitle {
+    margin-top: 22px;
+
+    font-size: 15px;
+
+    color: #a85b7d;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    animation: textAppear 1s 0.4s both;
+}
 
 h1 {
+    margin-top: 18px;
 
-font-size:45px;
+    font-size: clamp(38px, 7vw, 58px);
 
-color:#d63384;
+    line-height: 1.05;
 
-margin-bottom:20px;
+    font-weight: 700;
 
+    background:
+        linear-gradient(
+            90deg,
+            #c91868,
+            #ff4f91,
+            #c91868
+        );
+
+    background-size: 200% auto;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation:
+        textAppear 1s 0.5s both,
+        gradientMove 5s linear infinite;
 }
 
+h1 span {
+    display: inline-block;
 
-
-p {
-
-font-size:20px;
-
-color:#555;
-
+    animation: heartbeat 2s infinite;
 }
 
+@keyframes gradientMove {
 
-
-input {
-
-
-padding:15px;
-
-margin:10px;
-
-border-radius:15px;
-
-border:2px solid #ffd1df;
-
-font-size:18px;
-
-background:#fffafa;
-
+    to {
+        background-position: 200% center;
+    }
 }
 
+.description {
+    margin: 22px auto 30px;
 
+    max-width: 450px;
 
-button {
+    font-size: 17px;
 
+    line-height: 1.6;
 
-padding:16px 40px;
+    color: #725365;
 
-font-size:20px;
-
-border:none;
-
-border-radius:30px;
-
-
-background:#d63384;
-
-color:white;
-
-
-cursor:pointer;
-
-
-transition:0.3s;
-
-
+    animation: textAppear 1s 0.7s both;
 }
 
+@keyframes textAppear {
 
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 
-button:hover {
-
-
-transform:scale(1.1);
-
-
-box-shadow:
-0 10px 20px rgba(214,51,132,0.3);
-
-
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* =========================
+   SEPARATOR
+========================= */
 
+.separator {
+    display: flex;
 
+    align-items: center;
+    justify-content: center;
 
-#message {
+    gap: 12px;
 
+    color: #d63384;
 
-margin-top:25px;
-
-color:#d63384;
-
-font-weight:bold;
-
+    margin: 18px 0;
 }
 
+.separator span {
+    width: 60px;
+    height: 1px;
 
-
-
-.fleurs {
-
-
-position:absolute;
-
-width:380px;
-
-z-index:1;
-
-animation:flottement 5s infinite ease-in-out;
-
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #e98aaa
+    );
 }
 
-
-
-.gauche {
-
-
-top:-30px;
-
-left:-50px;
-
-
+.separator span:last-child {
+    background: linear-gradient(
+        90deg,
+        #e98aaa,
+        transparent
+    );
 }
 
+/* =========================
+   BUTTONS
+========================= */
 
+.buttons {
+    display: flex;
 
-.droite {
+    justify-content: center;
+    align-items: center;
 
+    gap: 15px;
 
-bottom:-40px;
+    flex-wrap: wrap;
 
-right:-50px;
+    margin-top: 15px;
 
-transform:rotate(180deg);
-
-
+    min-height: 80px;
 }
 
+.btn {
+    position: relative;
 
+    padding: 15px 28px;
 
+    border: none;
 
+    border-radius: 999px;
 
-.coeurs {
+    font-family: inherit;
 
+    font-size: 18px;
 
-position:absolute;
+    font-weight: bold;
 
-top:10%;
+    color: white;
 
-font-size:35px;
+    cursor: pointer;
 
-animation:descendre 6s infinite;
+    overflow: hidden;
 
+    transition:
+        transform 0.45s cubic-bezier(.16, 1, .3, 1),
+        box-shadow 0.3s ease,
+        opacity 0.4s ease;
 
+    box-shadow:
+        0 10px 25px rgba(214, 51, 132, 0.2);
 }
 
-
-
-
-@keyframes apparition {
-
-
-from {
-
-opacity:0;
-
-transform:translateY(40px);
-
+.btn span {
+    position: relative;
+    z-index: 2;
 }
 
-
-to {
-
-opacity:1;
-
-transform:translateY(0);
-
+.btn .emoji {
+    margin-left: 5px;
 }
 
+.btn::before {
+    content: "";
 
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.35),
+        transparent
+    );
+
+    transform: translateX(-120%);
+
+    transition: transform 0.6s ease;
 }
 
-
-
-
-
-@keyframes flottement {
-
-
-50% {
-
-transform:translateY(-15px);
-
+.btn:hover::before {
+    transform: translateX(120%);
 }
 
-
+.btn:hover {
+    transform: translateY(-5px) scale(1.05);
 }
 
-
-@keyframes descendre {
-
-
-0% {
-
-opacity:0;
-
-transform:translateY(-50px);
-
+.btn:active {
+    transform: scale(0.92);
 }
 
+.oui {
+    background: linear-gradient(
+        135deg,
+        #e83e8c,
+        #c91868
+    );
 
-50% {
-
-opacity:1;
-
+    animation: buttonAppear 0.8s 0.8s both;
 }
 
+.non {
+    background: linear-gradient(
+        135deg,
+        #8d8d9c,
+        #686875
+    );
 
-100% {
-
-opacity:0;
-
-transform:translateY(100px);
-
+    animation: buttonAppear 0.8s 0.9s both;
 }
 
+.peut-etre {
+    background: linear-gradient(
+        135deg,
+        #a779d1,
+        #8054aa
+    );
+
+    animation: buttonAppear 0.8s 1s both;
+}
+
+@keyframes buttonAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================
+   MESSAGES
+========================= */
+
+.messages {
+    min-height: 65px;
+
+    margin-top: 20px;
+}
+
+.messages p {
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: #d63384;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.message-pop {
+    animation: messagePop 0.5s cubic-bezier(.16, 1, .3, 1);
+}
+
+@keyframes messagePop {
+
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.8);
+    }
+
+    60% {
+        transform: translateY(-3px) scale(1.04);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================
+   BOTTOM TEXT
+========================= */
+
+.bottom-text {
+    margin-top: 15px;
+
+    font-size: 13px;
+
+    color: #b58b9d;
+
+    animation:
+        textAppear 1s 1.1s both;
+}
+
+/* =========================
+   DISAPPEAR
+========================= */
+
+.disappear {
+    animation: disappear 0.5s forwards !important;
+}
+
+@keyframes disappear {
+
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    60% {
+        opacity: 0.5;
+        transform: scale(1.2) rotate(5deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0) rotate(-15deg);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 40px 20px 30px;
+
+        border-radius: 30px;
+    }
+
+    .top-heart {
+        width: 60px;
+        height: 60px;
+
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 38px;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+
+    .buttons {
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 13px 20px;
+        font-size: 16px;
+    }
+
+    .messages p {
+        font-size: 16px;
+    }
 }

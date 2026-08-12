@@ -13,13 +13,11 @@
 
 </head>
 
-
 <body>
 
 <div class="coeurs">
 ❤️ 💕 🌸 💗 🌹 💕 ❤️
 </div>
-
 
 <div class="container">
 
@@ -38,24 +36,19 @@
 
     </div>
 
-
     <button id="confirmBtn">
         Confirmer 💌
     </button>
 
-
     <p id="message"></p>
 
 </div>
-
-
 
 <script>
 
 window.onload = function(){
 
     console.log("Page chargée");
-
 
     if(typeof emailjs === "undefined"){
 
@@ -67,30 +60,21 @@ window.onload = function(){
         return;
     }
 
-
     console.log("EmailJS chargé");
-
 
     emailjs.init("0jOxWfLIn86tCKIDB");
 
-
     console.log("EmailJS initialisé");
-
-
 
     document.getElementById("confirmBtn").onclick = async function(){
 
-
         console.log("Bouton cliqué");
-
 
         let date = document.getElementById("date").value;
 
         let heure = document.getElementById("heure").value;
 
         let message = document.getElementById("message");
-
-
 
         if(date === "" || heure === ""){
 
@@ -101,12 +85,8 @@ window.onload = function(){
 
         }
 
-
-
         message.textContent =
         "Envoi en cours... ❤️";
-
-
 
         console.log("Tentative d'envoi");
 
@@ -114,10 +94,7 @@ window.onload = function(){
 
         console.log("Heure :", heure);
 
-
-
         try{
-
 
             let response = await emailjs.send(
 
@@ -132,37 +109,25 @@ window.onload = function(){
 
             );
 
-
-
             console.log("EMAIL ENVOYÉ :", response);
-
-
 
             message.textContent =
             `🌹 Rendez-vous confirmé le ${date} à ${heure} ❤️`;
 
-
-
         }catch(error){
 
-
             console.error("ERREUR EMAILJS :", error);
-
 
             message.textContent =
             "Erreur lors de l'envoi 😢";
 
-
         }
 
-
     };
-
 
 };
 
 </script>
-
 
 </body>
 

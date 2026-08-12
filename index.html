@@ -4,21 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Une question ❤️</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="container">
-        <h1>Veux-tu sortir avec moi ? ❤️</h1>
+    <!-- Fond animé -->
+    <div class="background">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+    </div>
 
-        <div class="buttons">
-            <button id="oui">Oui 😍</button>
-            <button id="non">Non 😢</button>
+    <!-- Particules -->
+    <div class="particles"></div>
+
+    <!-- Cœurs -->
+    <div class="hearts"></div>
+
+    <main class="container">
+
+        <div class="top-heart">💗</div>
+
+        <div class="subtitle">
+            J'ai une petite question pour toi...
         </div>
 
-        <p id="message"></p>
-    </div>
+        <h1>
+            Veux-tu sortir<br>
+            avec moi ?
+            <span>❤️</span>
+        </h1>
+
+        <div class="separator">
+            <span></span>
+            💕
+            <span></span>
+        </div>
+
+        <p class="description">
+            Promis, cette question a été réfléchie très sérieusement...
+            enfin presque. 😭
+        </p>
+
+        <div class="buttons">
+
+            <button id="oui" class="btn oui">
+                <span>Oui</span>
+                <span class="emoji">😍</span>
+            </button>
+
+            <button id="non" class="btn non">
+                <span>Non</span>
+                <span class="emoji">😢</span>
+            </button>
+
+            <button id="peut-être" class="btn peut-etre">
+                <span>Peut-être</span>
+                <span class="emoji">🤔</span>
+            </button>
+
+        </div>
+
+        <div class="messages">
+
+            <p id="message"></p>
+
+            <p id="messagePeutEtre"></p>
+
+        </div>
+
+        <div class="bottom-text">
+            Fais le bon choix... 👀
+        </div>
+
+    </main>
 
     <script src="script.js"></script>
 
