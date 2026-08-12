@@ -2,146 +2,333 @@
 <html lang="fr">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Choix du rendez-vous ❤️</title>
 
     <link rel="stylesheet" href="style.css">
 
+    <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 </head>
 
 <body>
+
+    <!-- Musique -->
+    <audio id="musique" src="romantic.mp3" loop></audio>
+
+    <!-- Bouton musique -->
+    <button id="musicBtn" class="music-btn">
+        🎵
+    </button>
+
 
     <div class="coeurs">
         ❤️ 💕 🌸 💗 🌹 💕 ❤️
     </div>
 
+
     <div class="container">
 
-        <h1>Parfait ❤️</h1>
+        <div class="top-heart">
+            💗
+        </div>
+
+        <h1>
+            Parfait ❤️
+        </h1>
 
         <p>
             Choisis le moment qui te convient le mieux 😊
         </p>
 
+
         <div class="choix">
 
-            <input type="date" id="date">
+            <input
+                type="date"
+                id="date">
 
-            <input type="time" id="heure">
+            <input
+                type="time"
+                id="heure">
 
         </div>
 
-        <button id="confirmBtn">
-            Confirmer 💌
+
+        <button
+            id="confirmBtn"
+            class="btn oui">
+
+            <span>Confirmer</span>
+            <span class="emoji">💌</span>
+
         </button>
+
 
         <p id="message"></p>
 
     </div>
 
+
     <script>
 
-        const bouton = document.getElementById("confirmBtn");
-        const message = document.getElementById("message");
-        const dateInput = document.getElementById("date");
-        const heureInput = document.getElementById("heure");
+        /* =========================
+           MUSIQUE
+        ========================= */
 
-        console.log("Page chargée");
+        const musique =
+            document.getElementById("musique");
 
-        console.log("EmailJS :", typeof emailjs);
+        const musicBtn =
+            document.getElementById("musicBtn");
 
-        if (typeof emailjs === "undefined") {
+        musique.volume = 0.5;
 
-            console.error("EmailJS absent");
+
+        const anciennePosition =
+            sessionStorage.getItem("musiqueTime");
+
+        if (anciennePosition) {
+
+            musique.currentTime =
+                parseFloat(anciennePosition);
+        }
+
+
+        function lancerMusique() {
+
+            musique.play()
+                .then(() => {
+
+                    musicBtn.textContent = "🔊";
+
+                    sessionStorage.setItem(
+                        "musiqueActive",
+                        "true"
+                    );
+
+                })
+                .catch(() => {
+
+                    musicBtn.textContent = "🎵";
+
+                });
+        }
+
+
+        if (
+            sessionStorage.getItem("musiqueActive")
+            === "true"
+        ) {
+
+            lancerMusique();
+        }
+
+
+        musicBtn.addEventListener(
+            "click",
+            () => {
+
+                if (musique.paused) {
+
+                    lancerMusique();
+
+                } else {
+
+                    musique.pause();
+
+                    musicBtn.textContent =
+                        "🔇";
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    musique.paused &&
+                    sessionStorage.getItem(
+                        "musiqueActive"
+                    ) === "true"
+                ) {
+
+                    lancerMusique();
+                }
+
+            },
+            { once: true }
+        );
+
+
+        /* =========================
+           EMAILJS
+        ========================= */
+
+        const bouton =
+            document.getElementById(
+                "confirmBtn"
+            );
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+        const dateInput =
+            document.getElementById("date");
+
+        const heureInput =
+            document.getElementById("heure");
+
+
+        console.log(
+            "EmailJS :",
+            typeof emailjs
+        );
+
+
+        if (
+            typeof emailjs === "undefined"
+        ) {
+
+            console.error(
+                "EmailJS absent"
+            );
 
             message.textContent =
                 "EmailJS n'a pas pu être chargé 😢";
 
         } else {
 
-            console.log("EmailJS chargé");
+            console.log(
+                "EmailJS chargé"
+            );
 
-            emailjs.init("0jOxWfLIn86tCKIDB");
+            emailjs.init(
+                "0jOxWfLIn86tCKIDB"
+            );
 
-            console.log("EmailJS initialisé");
 
-            bouton.addEventListener("click", async () => {
+            bouton.addEventListener(
+                "click",
+                async () => {
 
-                console.log("Bouton cliqué");
+                    const date =
+                        dateInput.value;
 
-                const date = dateInput.value;
-                const heure = heureInput.value;
+                    const heure =
+                        heureInput.value;
 
-                console.log("Date :", date);
-                console.log("Heure :", heure);
 
-                if (date === "" || heure === "") {
+                    if (
+                        date === "" ||
+                        heure === ""
+                    ) {
 
-                    message.textContent =
-                        "Choisis une date et une heure 😊";
+                        message.textContent =
+                            "Choisis une date et une heure 😊";
 
-                    return;
-                }
+                        return;
+                    }
 
-                bouton.disabled = true;
-                bouton.textContent =
-                    "Envoi en cours... 💌";
 
-                message.textContent =
-                    "Je prépare tout ça... ❤️";
-
-                try {
-
-                    console.log("Tentative d'envoi EmailJS...");
-
-                    const response = await emailjs.send(
-                        "service_acfuhe4",
-                        "template_a6tkmk9",
-                        {
-                            date_rdv: date,
-                            heure_rdv: heure
-                        }
-                    );
-
-                    console.log("EMAIL ENVOYÉ :", response);
-
-                    message.textContent =
-                        `🌹 Rendez-vous confirmé le ${date} à ${heure} ❤️`;
+                    bouton.disabled = true;
 
                     bouton.textContent =
-                        "Rendez-vous confirmé 💕";
-
-                } catch (error) {
-
-                    console.error(
-                        "ERREUR EMAILJS :",
-                        error
-                    );
-
-                    console.error(
-                        "STATUS :",
-                        error.status
-                    );
-
-                    console.error(
-                        "TEXT :",
-                        error.text
-                    );
+                        "Envoi en cours... 💌";
 
                     message.textContent =
-                        "Erreur EmailJS : " +
-                        (error.text || error.message || "Erreur inconnue 😢");
+                        "Je prépare tout ça... ❤️";
 
-                    bouton.disabled = false;
 
-                    bouton.textContent =
-                        "Réessayer 💌";
+                    try {
+
+                        console.log(
+                            "Tentative d'envoi EmailJS..."
+                        );
+
+
+                        const response =
+                            await emailjs.send(
+
+                                "service_acfuhe4",
+
+                                "template_a6tkmk9",
+
+                                {
+                                    date_rdv: date,
+                                    heure_rdv: heure
+                                }
+
+                            );
+
+
+                        console.log(
+                            "EMAIL ENVOYÉ :",
+                            response
+                        );
+
+
+                        message.textContent =
+                            `🌹 Rendez-vous confirmé le ${date} à ${heure} ❤️`;
+
+
+                        bouton.textContent =
+                            "Rendez-vous confirmé 💕";
+
+
+                        sessionStorage.setItem(
+                            "musiqueTime",
+                            musique.currentTime
+                        );
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "ERREUR EMAILJS :",
+                            error
+                        );
+
+                        console.error(
+                            "STATUS :",
+                            error.status
+                        );
+
+                        console.error(
+                            "TEXT :",
+                            error.text
+                        );
+
+
+                        message.textContent =
+                            "Erreur EmailJS : " +
+                            (
+                                error.text ||
+                                error.message ||
+                                "Erreur inconnue 😢"
+                            );
+
+
+                        bouton.disabled =
+                            false;
+
+                        bouton.textContent =
+                            "Réessayer 💌";
+                    }
+
                 }
-
-            });
+            );
         }
 
     </script>

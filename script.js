@@ -9,6 +9,9 @@ const boutonPeutEtre = document.getElementById("peut-être");
 const message = document.getElementById("message");
 const messagePeutEtre = document.getElementById("messagePeutEtre");
 
+const musique = document.getElementById("musique");
+const musicBtn = document.getElementById("musicBtn");
+
 const messagesNon = [
     "Tu es sûre ? 🤨",
     "Réfléchis encore 😭",
@@ -27,6 +30,33 @@ const messagesPeutEtre = [
     "Allez... sois courageuse 😂❤️"
 ];
 
+
+/* =========================
+   MUSIQUE
+========================= */
+
+musique.volume = 0.5;
+
+musicBtn.addEventListener("click", () => {
+
+    if (musique.paused) {
+
+        musique.play()
+            .then(() => {
+                musicBtn.textContent = "🔊";
+            })
+            .catch(() => {
+                musicBtn.textContent = "🎵";
+            });
+
+    } else {
+
+        musique.pause();
+        musicBtn.textContent = "🔇";
+    }
+});
+
+
 /* =========================
    PARTICULES
 ========================= */
@@ -40,11 +70,16 @@ for (let i = 0; i < 45; i++) {
     particle.classList.add("particle");
 
     particle.style.left = `${Math.random() * 100}%`;
-    particle.style.animationDuration = `${5 + Math.random() * 8}s`;
-    particle.style.animationDelay = `${Math.random() * 8}s`;
+
+    particle.style.animationDuration =
+        `${5 + Math.random() * 8}s`;
+
+    particle.style.animationDelay =
+        `${Math.random() * 8}s`;
 
     particles.appendChild(particle);
 }
+
 
 /* =========================
    COEURS
@@ -72,7 +107,8 @@ function createHeart() {
             Math.floor(Math.random() * heartCharacters.length)
         ];
 
-    heart.style.left = `${Math.random() * 100}%`;
+    heart.style.left =
+        `${Math.random() * 100}%`;
 
     heart.style.fontSize =
         `${15 + Math.random() * 25}px`;
@@ -89,6 +125,7 @@ function createHeart() {
 
 setInterval(createHeart, 500);
 
+
 /* =========================
    MESSAGE
 ========================= */
@@ -103,6 +140,7 @@ function afficherMessage(element, texte) {
 
     element.classList.add("message-pop");
 }
+
 
 /* =========================
    BOUTON NON
@@ -131,9 +169,7 @@ boutonNon.addEventListener("click", () => {
         boutonNon.classList.add("disappear");
 
         setTimeout(() => {
-
             boutonNon.style.display = "none";
-
         }, 500);
 
         afficherMessage(
@@ -142,6 +178,7 @@ boutonNon.addEventListener("click", () => {
         );
     }
 });
+
 
 /* =========================
    BOUTON PEUT-ÊTRE
@@ -177,9 +214,7 @@ boutonPeutEtre.addEventListener("click", () => {
         boutonPeutEtre.classList.add("disappear");
 
         setTimeout(() => {
-
             boutonPeutEtre.style.display = "none";
-
         }, 500);
 
         afficherMessage(
@@ -189,6 +224,7 @@ boutonPeutEtre.addEventListener("click", () => {
     }
 });
 
+
 /* =========================
    BOUTON OUI
 ========================= */
@@ -196,6 +232,38 @@ boutonPeutEtre.addEventListener("click", () => {
 boutonOui.addEventListener("click", () => {
 
     boutonOui.classList.add("accepted");
+
+    /*
+     * Le clic de l'utilisateur permet au navigateur
+     * d'autoriser la lecture de la musique.
+     */
+
+    musique.volume = 0.5;
+
+    musique.play()
+        .then(() => {
+
+            sessionStorage.setItem(
+                "musiqueActive",
+                "true"
+            );
+
+            sessionStorage.setItem(
+                "musiqueTime",
+                musique.currentTime
+            );
+
+            musicBtn.textContent = "🔊";
+
+        })
+        .catch(error => {
+
+            console.log(
+                "La musique a été bloquée :",
+                error
+            );
+
+        });
 
     document.body.classList.add("fade-out");
 

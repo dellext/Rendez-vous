@@ -750,3 +750,70 @@ h1 span {
         height: 4px;
     }
 }
+
+/* =========================
+   BOUTON MUSIQUE
+========================= */
+
+.music-btn {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    width: 55px;
+    height: 55px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 10px 30px rgba(214, 51, 132, 0.2);
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    z-index: 100;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+
+    box-shadow:
+        0 15px 35px rgba(214, 51, 132, 0.3);
+}
+
+.music-btn:active {
+    transform: scale(0.9);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .music-btn {
+        width: 48px;
+        height: 48px;
+
+        right: 15px;
+        bottom: 15px;
+
+        font-size: 20px;
+    }
+
+}

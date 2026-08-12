@@ -1,41 +1,204 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Notre rendez-vous ❤️</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<div class="container">
+    <!-- Musique -->
+    <audio id="musique" src="romantic.mp3" loop></audio>
 
-    <h1>C'est un oui !!! 😍❤️</h1>
-
-    <h2>Organisons ça :</h2>
-
-    <p>📅 Choisis la date qui te convient</p>
-    <p>🕒 Choisis l'heure qui te convient</p>
-    <p>📍 Le lieu : À choisir ensemble 😏</p>
-
-    <button onclick="changerPage('final.html')">
-        Continuer 💌
+    <!-- Bouton musique -->
+    <button id="musicBtn" class="music-btn">
+        🎵
     </button>
 
-</div>
+    <div class="container">
 
-<script>
-function changerPage(page) {
+        <div class="top-heart">
+            💗
+        </div>
 
-    document.body.classList.add("fade-out");
+        <h1>
+            C'est un oui !!! 😍❤️
+        </h1>
 
-    setTimeout(() => {
-        window.location.href = page;
-    }, 800);
+        <h2>
+            Organisons ça :
+        </h2>
 
-}
-</script>
+        <p>
+            📅 Choisis la date qui te convient
+        </p>
+
+        <p>
+            🕒 Choisis l'heure qui te convient
+        </p>
+
+        <p>
+            📍 Le lieu : À choisir ensemble 😏
+        </p>
+
+        <button
+            id="continuerBtn"
+            class="btn oui">
+
+            <span>Continuer</span>
+            <span class="emoji">💌</span>
+
+        </button>
+
+    </div>
+
+
+    <script>
+
+        const musique =
+            document.getElementById("musique");
+
+        const musicBtn =
+            document.getElementById("musicBtn");
+
+        const continuerBtn =
+            document.getElementById("continuerBtn");
+
+
+        /* =========================
+           MUSIQUE
+        ========================= */
+
+        musique.volume = 0.5;
+
+
+        const anciennePosition =
+            sessionStorage.getItem("musiqueTime");
+
+        if (anciennePosition) {
+
+            musique.currentTime =
+                parseFloat(anciennePosition);
+        }
+
+
+        function lancerMusique() {
+
+            musique.play()
+                .then(() => {
+
+                    musicBtn.textContent = "🔊";
+
+                    sessionStorage.setItem(
+                        "musiqueActive",
+                        "true"
+                    );
+
+                })
+                .catch(() => {
+
+                    musicBtn.textContent = "🎵";
+
+                });
+        }
+
+
+        /*
+         * On essaye de reprendre automatiquement.
+         * Certains téléphones peuvent bloquer cette action.
+         */
+
+        if (
+            sessionStorage.getItem("musiqueActive")
+            === "true"
+        ) {
+
+            lancerMusique();
+        }
+
+
+        musicBtn.addEventListener(
+            "click",
+            () => {
+
+                if (musique.paused) {
+
+                    lancerMusique();
+
+                } else {
+
+                    musique.pause();
+
+                    musicBtn.textContent =
+                        "🔇";
+                }
+
+            }
+        );
+
+
+        /*
+         * Si le téléphone bloque l'autoplay,
+         * le premier clic sur la page relance la musique.
+         */
+
+        document.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    musique.paused &&
+                    sessionStorage.getItem(
+                        "musiqueActive"
+                    ) === "true"
+                ) {
+
+                    lancerMusique();
+                }
+
+            },
+            { once: true }
+        );
+
+
+        /* =========================
+           CONTINUER
+        ========================= */
+
+        continuerBtn.addEventListener(
+            "click",
+            () => {
+
+                sessionStorage.setItem(
+                    "musiqueTime",
+                    musique.currentTime
+                );
+
+                document.body.classList.add(
+                    "fade-out"
+                );
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "final.html";
+
+                }, 800);
+
+            }
+        );
+
+    </script>
 
 </body>
+
 </html>
