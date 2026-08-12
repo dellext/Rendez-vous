@@ -10,30 +10,73 @@ html {
 
 body {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     font-family: "Georgia", serif;
 
     background:
-        radial-gradient(circle at 20% 20%, rgba(255, 180, 210, 0.8), transparent 35%),
-        radial-gradient(circle at 80% 80%, rgba(255, 210, 225, 0.8), transparent 35%),
-        linear-gradient(135deg, #fff0f6, #ffd6e7, #fff5f8);
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 180, 210, 0.8),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 210, 225, 0.8),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #fff0f6,
+            #ffd6e7,
+            #fff5f8
+        );
 
     overflow: hidden;
 
-    opacity: 1;
+    color: #725365;
+}
+
+
+/* =========================
+   PAGES
+========================= */
+
+.page {
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: translateX(60px) scale(0.96);
 
     transition:
-        opacity 1s ease,
-        transform 1s ease;
+        opacity 0.7s ease,
+        transform 0.7s cubic-bezier(.16, 1, .3, 1),
+        visibility 0.7s;
+
+    z-index: 5;
 }
 
-body.fade-out {
-    opacity: 0;
-    transform: scale(1.05);
+.page.active {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateX(0)
+        scale(1);
 }
+
 
 /* =========================
    BACKGROUND
@@ -41,23 +84,33 @@ body.fade-out {
 
 .background {
     position: fixed;
+
     inset: 0;
+
     overflow: hidden;
+
     pointer-events: none;
 }
 
 .blob {
     position: absolute;
+
     border-radius: 50%;
+
     filter: blur(80px);
+
     opacity: 0.5;
-    animation: blobMove 12s infinite alternate ease-in-out;
+
+    animation:
+        blobMove 12s infinite alternate ease-in-out;
 }
 
 .blob1 {
     width: 350px;
     height: 350px;
+
     background: #ff8fbd;
+
     top: -100px;
     left: -100px;
 }
@@ -65,35 +118,48 @@ body.fade-out {
 .blob2 {
     width: 300px;
     height: 300px;
+
     background: #ffb6d5;
+
     bottom: -100px;
     right: -80px;
+
     animation-delay: -4s;
 }
 
 .blob3 {
     width: 250px;
     height: 250px;
+
     background: #ffd1e5;
+
     top: 40%;
     left: 60%;
+
     animation-delay: -7s;
 }
 
 @keyframes blobMove {
 
     0% {
-        transform: translate(0, 0) scale(1);
+        transform:
+            translate(0, 0)
+            scale(1);
     }
 
     50% {
-        transform: translate(60px, -40px) scale(1.15);
+        transform:
+            translate(60px, -40px)
+            scale(1.15);
     }
 
     100% {
-        transform: translate(-40px, 50px) scale(0.95);
+        transform:
+            translate(-40px, 50px)
+            scale(0.95);
     }
 }
+
 
 /* =========================
    PARTICULES
@@ -101,9 +167,14 @@ body.fade-out {
 
 .particles {
     position: fixed;
+
     inset: 0;
+
     pointer-events: none;
+
     overflow: hidden;
+
+    z-index: 1;
 }
 
 .particle {
@@ -145,15 +216,21 @@ body.fade-out {
     }
 }
 
+
 /* =========================
    COEURS
 ========================= */
 
 .hearts {
     position: fixed;
+
     inset: 0;
+
     pointer-events: none;
+
     overflow: hidden;
+
+    z-index: 2;
 }
 
 .heart {
@@ -161,18 +238,16 @@ body.fade-out {
 
     bottom: -50px;
 
-    font-size: 20px;
-
     opacity: 0;
 
-    animation:
-        heartFloat linear forwards;
+    animation: heartFloat linear forwards;
 }
 
 @keyframes heartFloat {
 
     0% {
         opacity: 0;
+
         transform:
             translateY(0)
             rotate(0deg)
@@ -193,6 +268,7 @@ body.fade-out {
 
     100% {
         opacity: 0;
+
         transform:
             translateY(-110vh)
             translateX(-40px)
@@ -200,6 +276,54 @@ body.fade-out {
             scale(1.3);
     }
 }
+
+
+/* =========================
+   MUSIC BUTTON
+========================= */
+
+.music-btn {
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    width: 52px;
+    height: 52px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 10px 30px rgba(214, 51, 132, 0.2);
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    z-index: 100;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+
+    box-shadow:
+        0 15px 35px rgba(214, 51, 132, 0.3);
+}
+
+.music-btn:active {
+    transform: scale(0.9);
+}
+
 
 /* =========================
    CONTAINER
@@ -210,16 +334,21 @@ body.fade-out {
 
     width: min(92%, 620px);
 
-    padding: 55px 45px 40px;
+    max-height: 90vh;
+
+    padding: 50px 45px 40px;
 
     text-align: center;
 
-    background: rgba(255, 255, 255, 0.72);
+    background:
+        rgba(255, 255, 255, 0.72);
 
     backdrop-filter: blur(25px);
+
     -webkit-backdrop-filter: blur(25px);
 
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border:
+        1px solid rgba(255, 255, 255, 0.8);
 
     border-radius: 40px;
 
@@ -229,25 +358,31 @@ body.fade-out {
 
     z-index: 10;
 
-    animation: containerAppear 1.2s cubic-bezier(.16, 1, .3, 1);
+    overflow-y: auto;
+
+    animation:
+        containerAppear 1s cubic-bezier(.16, 1, .3, 1);
 }
 
 @keyframes containerAppear {
 
     from {
         opacity: 0;
+
         transform:
-            translateY(60px)
-            scale(0.9);
+            translateY(40px)
+            scale(0.92);
     }
 
     to {
         opacity: 1;
+
         transform:
             translateY(0)
             scale(1);
     }
 }
+
 
 /* =========================
    TOP HEART
@@ -264,7 +399,8 @@ body.fade-out {
 
     font-size: 35px;
 
-    background: rgba(255, 220, 235, 0.8);
+    background:
+        rgba(255, 220, 235, 0.8);
 
     border-radius: 50%;
 
@@ -272,8 +408,7 @@ body.fade-out {
         0 10px 30px rgba(214, 51, 132, 0.15);
 
     animation:
-        heartbeat 2s infinite ease-in-out,
-        topAppear 1s 0.3s both;
+        heartbeat 2s infinite ease-in-out;
 }
 
 @keyframes heartbeat {
@@ -296,18 +431,6 @@ body.fade-out {
     }
 }
 
-@keyframes topAppear {
-
-    from {
-        opacity: 0;
-        transform: translateY(-20px) scale(0.7);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
 
 /* =========================
    TEXT
@@ -323,14 +446,13 @@ body.fade-out {
     letter-spacing: 2px;
 
     text-transform: uppercase;
-
-    animation: textAppear 1s 0.4s both;
 }
 
 h1 {
     margin-top: 18px;
 
-    font-size: clamp(38px, 7vw, 58px);
+    font-size:
+        clamp(38px, 7vw, 58px);
 
     line-height: 1.05;
 
@@ -347,30 +469,41 @@ h1 {
     background-size: 200% auto;
 
     -webkit-background-clip: text;
+
     background-clip: text;
 
     color: transparent;
 
     animation:
-        textAppear 1s 0.5s both,
         gradientMove 5s linear infinite;
 }
 
 h1 span {
     display: inline-block;
 
-    animation: heartbeat 2s infinite;
+    animation:
+        heartbeat 2s infinite;
 }
 
 @keyframes gradientMove {
 
     to {
-        background-position: 200% center;
+        background-position:
+            200% center;
     }
 }
 
+h2 {
+    margin-top: 25px;
+
+    color: #c91868;
+
+    font-size: 28px;
+}
+
 .description {
-    margin: 22px auto 30px;
+    margin:
+        22px auto 30px;
 
     max-width: 450px;
 
@@ -379,22 +512,8 @@ h1 span {
     line-height: 1.6;
 
     color: #725365;
-
-    animation: textAppear 1s 0.7s both;
 }
 
-@keyframes textAppear {
-
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 /* =========================
    SEPARATOR
@@ -404,33 +523,38 @@ h1 span {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     gap: 12px;
 
     color: #d63384;
 
-    margin: 18px 0;
+    margin: 22px 0;
 }
 
 .separator span {
     width: 60px;
+
     height: 1px;
 
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #e98aaa
-    );
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #e98aaa
+        );
 }
 
 .separator span:last-child {
-    background: linear-gradient(
-        90deg,
-        #e98aaa,
-        transparent
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #e98aaa,
+            transparent
+        );
 }
+
 
 /* =========================
    BUTTONS
@@ -440,6 +564,7 @@ h1 span {
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
     gap: 15px;
@@ -483,6 +608,7 @@ h1 span {
 
 .btn span {
     position: relative;
+
     z-index: 2;
 }
 
@@ -497,72 +623,64 @@ h1 span {
 
     inset: 0;
 
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,0.35),
-        transparent
-    );
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.35),
+            transparent
+        );
 
-    transform: translateX(-120%);
+    transform:
+        translateX(-120%);
 
-    transition: transform 0.6s ease;
+    transition:
+        transform 0.6s ease;
 }
 
 .btn:hover::before {
-    transform: translateX(120%);
+    transform:
+        translateX(120%);
 }
 
 .btn:hover {
-    transform: translateY(-5px) scale(1.05);
+    transform:
+        translateY(-5px)
+        scale(1.05);
 }
 
 .btn:active {
-    transform: scale(0.92);
+    transform:
+        scale(0.92);
 }
 
 .oui {
-    background: linear-gradient(
-        135deg,
-        #e83e8c,
-        #c91868
-    );
-
-    animation: buttonAppear 0.8s 0.8s both;
+    background:
+        linear-gradient(
+            135deg,
+            #e83e8c,
+            #c91868
+        );
 }
 
 .non {
-    background: linear-gradient(
-        135deg,
-        #8d8d9c,
-        #686875
-    );
-
-    animation: buttonAppear 0.8s 0.9s both;
+    background:
+        linear-gradient(
+            135deg,
+            #8d8d9c,
+            #686875
+        );
 }
 
 .peut-etre {
-    background: linear-gradient(
-        135deg,
-        #a779d1,
-        #8054aa
-    );
-
-    animation: buttonAppear 0.8s 1s both;
+    background:
+        linear-gradient(
+            135deg,
+            #a779d1,
+            #8054aa
+        );
 }
 
-@keyframes buttonAppear {
-
-    from {
-        opacity: 0;
-        transform: translateY(25px) scale(0.8);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
 
 /* =========================
    MESSAGES
@@ -581,222 +699,145 @@ h1 span {
 
     color: #d63384;
 
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
+    min-height: 25px;
 }
 
 .message-pop {
-    animation: messagePop 0.5s cubic-bezier(.16, 1, .3, 1);
+    animation:
+        messagePop 0.5s cubic-bezier(.16, 1, .3, 1);
 }
 
 @keyframes messagePop {
 
     0% {
         opacity: 0;
-        transform: translateY(10px) scale(0.8);
+
+        transform:
+            translateY(10px)
+            scale(0.8);
     }
 
     60% {
-        transform: translateY(-3px) scale(1.04);
+        transform:
+            translateY(-3px)
+            scale(1.04);
     }
 
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
+
 
 /* =========================
-   BOTTOM TEXT
+   INPUTS
 ========================= */
 
-.bottom-text {
-    margin-top: 15px;
+.choix {
+    display: flex;
 
-    font-size: 13px;
+    justify-content: center;
 
-    color: #b58b9d;
+    gap: 15px;
 
-    animation:
-        textAppear 1s 1.1s both;
+    margin: 25px 0;
+
+    flex-wrap: wrap;
 }
 
-/* =========================
-   DISAPPEAR
-========================= */
+.input-group {
+    display: flex;
 
-.disappear {
-    animation: disappear 0.5s forwards !important;
+    flex-direction: column;
+
+    gap: 8px;
+
+    text-align: left;
 }
 
-@keyframes disappear {
+.input-group label {
+    color: #a85b7d;
 
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
+    font-size: 15px;
 
-    60% {
-        opacity: 0.5;
-        transform: scale(1.2) rotate(5deg);
-    }
-
-    100% {
-        opacity: 0;
-        transform: scale(0) rotate(-15deg);
-    }
+    font-weight: bold;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+input {
+    padding: 14px;
 
-@media (max-width: 600px) {
+    border:
+        2px solid #ffd1df;
 
-    body {
-        padding: 15px;
-    }
+    border-radius: 15px;
 
-    .container {
-        width: 100%;
-        max-width: 390px;
+    font-family: inherit;
 
-        padding: 32px 18px 25px;
+    font-size: 16px;
 
-        border-radius: 28px;
-    }
+    background:
+        rgba(255, 250, 252, 0.9);
 
-    .top-heart {
-        width: 58px;
-        height: 58px;
-        font-size: 27px;
-    }
+    color: #725365;
 
-    .subtitle {
-        margin-top: 16px;
-        font-size: 11px;
-        letter-spacing: 1.5px;
-    }
-
-    h1 {
-        margin-top: 14px;
-        font-size: clamp(30px, 9vw, 38px);
-        line-height: 1.1;
-    }
-
-    .description {
-        margin: 18px auto 24px;
-        font-size: 15px;
-        line-height: 1.5;
-    }
-
-    .separator {
-        margin: 15px 0;
-    }
-
-    .separator span {
-        width: 40px;
-    }
-
-    .buttons {
-        gap: 10px;
-        margin-top: 12px;
-        min-height: 65px;
-    }
-
-    .btn {
-        padding: 12px 18px;
-        font-size: 16px;
-        min-height: 46px;
-    }
-
-    .messages {
-        min-height: 55px;
-        margin-top: 15px;
-    }
-
-    .messages p {
-        font-size: 15px;
-        line-height: 1.4;
-    }
-
-    .bottom-text {
-        margin-top: 10px;
-        font-size: 11px;
-    }
-
-    .blob1 {
-        width: 220px;
-        height: 220px;
-    }
-
-    .blob2 {
-        width: 200px;
-        height: 200px;
-    }
-
-    .blob3 {
-        width: 160px;
-        height: 160px;
-    }
-
-    .heart {
-        font-size: 16px;
-    }
-
-    .particle {
-        width: 4px;
-        height: 4px;
-    }
-}
-
-/* =========================
-   BOUTON MUSIQUE
-========================= */
-
-.music-btn {
-    position: fixed;
-
-    right: 25px;
-    bottom: 25px;
-
-    width: 55px;
-    height: 55px;
-
-    padding: 0;
-
-    border: none;
-    border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.8);
-
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-
-    box-shadow:
-        0 10px 30px rgba(214, 51, 132, 0.2);
-
-    font-size: 24px;
-
-    cursor: pointer;
-
-    z-index: 100;
+    outline: none;
 
     transition:
-        transform 0.3s ease,
+        border-color 0.3s ease,
         box-shadow 0.3s ease;
 }
 
-.music-btn:hover {
-    transform: scale(1.1);
+input:focus {
+    border-color: #d63384;
 
     box-shadow:
-        0 15px 35px rgba(214, 51, 132, 0.3);
+        0 0 0 4px
+        rgba(214, 51, 132, 0.1);
 }
 
-.music-btn:active {
-    transform: scale(0.9);
+
+/* =========================
+   INFOS
+========================= */
+
+.infos {
+    margin:
+        25px auto;
+
+    padding:
+        18px;
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(255, 225, 237, 0.45);
+}
+
+.infos p {
+    margin:
+        10px 0;
+
+    font-size: 17px;
+}
+
+
+/* =========================
+   FINAL
+========================= */
+
+.final-heart {
+    font-size: 70px;
+
+    margin:
+        25px 0;
+
+    animation:
+        heartbeat 1.5s infinite;
 }
 
 
@@ -806,14 +847,85 @@ h1 span {
 
 @media (max-width: 600px) {
 
-    .music-btn {
-        width: 48px;
-        height: 48px;
-
-        right: 15px;
-        bottom: 15px;
-
-        font-size: 20px;
+    .page {
+        padding:
+            12px;
     }
 
-}
+    .container {
+        width: 94%;
+
+        max-height: 92vh;
+
+        padding:
+            35px 18px 28px;
+
+        border-radius:
+            30px;
+    }
+
+    .top-heart {
+        width: 58px;
+        height: 58px;
+
+        font-size: 27px;
+    }
+
+    .subtitle {
+        font-size: 11px;
+
+        letter-spacing: 1.5px;
+    }
+
+    h1 {
+        font-size: 36px;
+
+        line-height: 1.1;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    .description {
+        font-size: 15px;
+
+        line-height: 1.5;
+    }
+
+    .buttons {
+        gap: 10px;
+    }
+
+    .btn {
+        padding:
+            12px 18px;
+
+        font-size: 15px;
+    }
+
+    .messages p {
+        font-size: 15px;
+    }
+
+    .choix {
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .input-group {
+        width: 100%;
+
+        max-width: 250px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .music-btn {
+        width: 46px;
+        height: 46px;
+
+        t

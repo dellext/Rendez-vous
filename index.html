@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,86 +7,260 @@
     <title>Une question ❤️</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
 
-    <!-- Musique -->
-    <audio id="musique" src="romantic.mp3" loop></audio>
+    <!-- MUSIQUE -->
+    <audio id="musique" src="romantic.mp3" preload="auto"></audio>
 
-    <!-- Fond animé -->
+    <!-- BOUTON MUSIQUE -->
+    <button id="musicBtn" class="music-btn">
+        🔊
+    </button>
+
+    <!-- FOND -->
     <div class="background">
         <div class="blob blob1"></div>
         <div class="blob blob2"></div>
         <div class="blob blob3"></div>
     </div>
 
-    <!-- Particules -->
     <div class="particles"></div>
-
-    <!-- Cœurs -->
     <div class="hearts"></div>
 
-    <!-- Contrôle musique -->
-    <button id="musicBtn" class="music-btn">🎵</button>
+    <!-- =========================
+         PAGE 1
+    ========================== -->
 
-    <main class="container">
+    <section id="page1" class="page active">
 
-        <div class="top-heart">💗</div>
+        <main class="container">
 
-        <div class="subtitle">
-            J'ai une petite question pour toi...
-        </div>
+            <div class="top-heart">
+                💗
+            </div>
 
-        <h1>
-            Veux-tu sortir<br>
-            avec moi ?
-            <span>❤️</span>
-        </h1>
+            <div class="subtitle">
+                J'ai une petite question pour toi...
+            </div>
 
-        <div class="separator">
-            <span></span>
-            💕
-            <span></span>
-        </div>
+            <h1>
+                Veux-tu sortir<br>
+                avec moi ?
+                <span>❤️</span>
+            </h1>
 
-        <p class="description">
-            Promis, cette question a été réfléchie très sérieusement...
-            enfin presque. 😭
-        </p>
+            <div class="separator">
+                <span></span>
+                💕
+                <span></span>
+            </div>
 
-        <div class="buttons">
+            <p class="description">
+                Promis, cette question a été réfléchie très sérieusement...
+                enfin presque. 😭
+            </p>
 
-            <button id="oui" class="btn oui">
-                <span>Oui</span>
-                <span class="emoji">😍</span>
+            <div class="buttons">
+
+                <button id="oui" class="btn oui">
+                    <span>Oui</span>
+                    <span class="emoji">😍</span>
+                </button>
+
+                <button id="non" class="btn non">
+                    <span>Non</span>
+                    <span class="emoji">😢</span>
+                </button>
+
+                <button id="peut-etre" class="btn peut-etre">
+                    <span>Peut-être</span>
+                    <span class="emoji">🤔</span>
+                </button>
+
+            </div>
+
+            <div class="messages">
+
+                <p id="message"></p>
+                <p id="messagePeutEtre"></p>
+
+            </div>
+
+            <div class="bottom-text">
+                Fais le bon choix... 👀
+            </div>
+
+        </main>
+
+    </section>
+
+
+    <!-- =========================
+         PAGE 2
+    ========================== -->
+
+    <section id="page2" class="page">
+
+        <main class="container">
+
+            <div class="top-heart">
+                💕
+            </div>
+
+            <div class="subtitle">
+                Je savais que tu allais dire oui...
+            </div>
+
+            <h1>
+                C'est un oui !!! 😍❤️
+            </h1>
+
+            <div class="separator">
+                <span></span>
+                💕
+                <span></span>
+            </div>
+
+            <h2>
+                Organisons ça 🥰
+            </h2>
+
+            <p class="description">
+                Maintenant, il faut choisir le moment parfait
+                pour notre petit rendez-vous. 😏
+            </p>
+
+            <div class="infos">
+
+                <p>📅 Une date parfaite</p>
+                <p>🕒 Une heure parfaite</p>
+                <p>📍 Le lieu ? On choisira ensemble 😏</p>
+
+            </div>
+
+            <button id="continuerBtn" class="btn oui">
+                Continuer 💌
             </button>
 
-            <button id="non" class="btn non">
-                <span>Non</span>
-                <span class="emoji">😢</span>
+        </main>
+
+    </section>
+
+
+    <!-- =========================
+         PAGE 3
+    ========================== -->
+
+    <section id="page3" class="page">
+
+        <main class="container">
+
+            <div class="top-heart">
+                🌹
+            </div>
+
+            <div class="subtitle">
+                Dernière petite étape...
+            </div>
+
+            <h1>
+                Choisis notre moment ❤️
+            </h1>
+
+            <p class="description">
+                Choisis la date et l'heure qui te conviennent.
+                Je m'occupe du reste. 😌
+            </p>
+
+            <div class="choix">
+
+                <div class="input-group">
+
+                    <label for="date">
+                        📅 Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="heure">
+                        🕒 Heure
+                    </label>
+
+                    <input
+                        type="time"
+                        id="heure"
+                    >
+
+                </div>
+
+            </div>
+
+            <button id="confirmBtn" class="btn oui">
+                Confirmer 💌
             </button>
 
-            <button id="peut-être" class="btn peut-etre">
-                <span>Peut-être</span>
-                <span class="emoji">🤔</span>
-            </button>
+            <div class="messages">
+                <p id="messageFinal"></p>
+            </div>
 
-        </div>
+        </main>
 
-        <div class="messages">
+    </section>
 
-            <p id="message"></p>
 
-            <p id="messagePeutEtre"></p>
+    <!-- =========================
+         PAGE 4
+    ========================== -->
 
-        </div>
+    <section id="page4" class="page">
 
-        <div class="bottom-text">
-            Fais le bon choix... 👀
-        </div>
+        <main class="container final-container">
 
-    </main>
+            <div class="top-heart">
+                💖
+            </div>
+
+            <div class="subtitle">
+                C'est officiel...
+            </div>
+
+            <h1>
+                Rendez-vous confirmé ❤️
+            </h1>
+
+            <div class="separator">
+                <span></span>
+                💕
+                <span></span>
+            </div>
+
+            <p id="confirmationText" class="description">
+                Notre petit rendez-vous est maintenant prévu. 🥰
+            </p>
+
+            <div class="final-heart">
+                ❤️
+            </div>
+
+            <p class="bottom-text">
+                J'ai hâte de te voir. 🌹
+            </p>
+
+        </main>
+
+    </section>
+
 
     <script src="script.js"></script>
 
