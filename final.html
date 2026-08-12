@@ -119,7 +119,7 @@ window.onload = function(){
             console.error("ERREUR EMAILJS :", error);
 
             message.textContent =
-            "Erreur lors de l'envoi 😢";
+            `Erreur : ${error.text || error.message || "Erreur inconnue"}`;
 
         }
 
